@@ -1,10 +1,10 @@
 #LEGENDA
-#n= numero rate
+#n= rate
 #i= tasso di interesse annuo
-#k= quanti versamenti annui......inserire 12 se mensili , 6 se bimestrali , 4 trimestrali ecc...
+#k= quanti versamenti annui......inserire 12 se mensili , 6 se bimestrale , 4 trimestrale ecc...
 #S= ammontare del debito iniziale
 
-#Ammortamento francese, rate costanti 
+#Ammortamento a rate costanti 
 def ammortamentoFrancese(n,i,k,S) :
     import numpy as np
     import pandas as pd 
@@ -17,12 +17,13 @@ def ammortamentoFrancese(n,i,k,S) :
     QuotaCapitale= np.round(((1+iv)**-(n-intervallo+1))*Rata,2)
     Interessi= np.round(((1-(1+iv)**-(n-intervallo+1)))*Rata,2)
     DebitoResiduo=np.round(((1-(1+iv)**(-n+intervallo))/iv)*Rata,2)
+    DebitoEstinto=np.round(S-DebitoResiduo,2)
     #Creazione tabella
     
-    tabella=pd.DataFrame(zip(intervallo,Rata,QuotaCapitale,Interessi,DebitoResiduo),columns=["N°Rate","Rata","Quote Capitale","Interessi","Debito Residuo"])
-    riga=pd.DataFrame({"N°Rate":0,"Rata":0,"Quote Capitale":0,"Interessi":0,"Debito Residuo":S},index=[0])
+    tabella=pd.DataFrame(zip(intervallo,Rata,QuotaCapitale,Interessi,DebitoResiduo,DebitoEstinto),columns=["N°Rate","Rata","Quote Capitale","Interessi","Debito Residuo","Debito Estinto"])
+    riga=pd.DataFrame({"N°Rate":0,"Rata":0,"Quote Capitale":0,"Interessi":0,"Debito Residuo":S,"Debito Estinto":0},index=[0])
     Tabella=pd.concat([riga,tabella.loc[:]]).reset_index(drop=True)
     
     print(tabulate(Tabella,headers="keys",tablefmt="fancy_grid",showindex="never"))
     print("Il totale degli interessi corrisposti sarà di",round(sum(Interessi),2))
-ammortamentoFrancese(48,0.1449,12,2500)
+ammortamentoFrancese(26,0.1449,12,20000)
