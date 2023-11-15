@@ -1,5 +1,7 @@
 # fnm
 Raccolta di script usati per l'uni 
+
+
 script che compilano piano di ammortamento a rata costante o rata variabile
 stampano tabella e grafico
 
