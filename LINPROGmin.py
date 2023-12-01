@@ -1,7 +1,10 @@
+#inserire coefficenti della funzione obiettivo 
 z1,z2=[ 5 , 7 ]            
 
 #inserire i coefficenti dei vincoli
 #nell'ultimo termine tenere 1 se >, inserisci -1 se <
+
+#               x   y   c    >=/<=
 a1,b1,c1, s1 =[ 1 , 3 , 6,    1   ]         
 a2,b2,c2, s2 =[ 5 , 2 , 10,   1   ]           
 a3,b3,c3, s3 =[ 0 , 1 , 4,   -1   ]
@@ -108,8 +111,8 @@ if b3==0:
 if b4==0:
     plt.axvline(x=c4,color='orange')
 
+#Condizioni per la regione ammissibile 
 xx, yy = np.meshgrid(xr, xr)
-
 cond1 = (s1*(a1*xx + b1*yy) >= c1*s1)
 cond2 = (s2*(a2*xx + b2*yy) >= c2*s2)
 cond3 = (s3*(a3*xx + b3*yy) >= c3*s3)
