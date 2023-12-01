@@ -1,9 +1,11 @@
-#Inserisco i dati 
+#Inserisci coefficenti funzione obiettivo
 z1,z2=[ 20 , 10 ]            
 
 #inserire i coefficenti dei vincoli
 #nell'ultimo termine tenere 1 se >, inserisci -1 se <
-a1,b1,c1, s1 =[ 1 , 2 , 40,   -1   ]         
+
+#               x   y   c     >=/<=
+a1,b1,c1, s1 =[ 1 , 2 , 40,  -1   ]         
 a2,b2,c2, s2 =[ 3 , 1 , 30,   1   ]           
 a3,b3,c3, s3 =[ 4 , 3 , 60,   1   ]
 a4,b4,c4, s4 =[ 0 , 0 , 0 ,   1   ]
@@ -95,7 +97,6 @@ else:
    ax.plot(xr,y4,color='orange',label='vincolo 4')
 
 
-
 if b1==0:
     plt.axvline(x=c1,color='purple')
 if b2==0:
@@ -107,13 +108,12 @@ if b4==0:
 
 ax.scatter(x.value(), y.value(), s=30, color='red',label='ottimo')
 
+#Condizioni per la regione ammissibile
 xx, yy = np.meshgrid(xr, xr)
-
 cond1 = (s1*(a1*xx + b1*yy) >= c1*s1)
 cond2 = (s2*(a2*xx + b2*yy) >= c2*s2)
 cond3 = (s3*(a3*xx + b3*yy) >= c3*s3)
 cond4 = (s4*(a4*xx + b4*yy) >= c4*s4)
-
 
 RegioneAmmissibile = cond1 & cond2 & cond3 & cond4
 ax.imshow(~RegioneAmmissibile, extent=(xr.min(), xr.max(), xr.min(), xr.max()), origin='lower', cmap='ocean',alpha=0.1)
