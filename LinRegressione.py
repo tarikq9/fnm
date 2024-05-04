@@ -46,4 +46,4 @@ def outputRegressione(input):
     plt.legend(ncol=2,loc='center',bbox_to_anchor=(0.5,1.06))
     plt.grid(linestyle='--', linewidth=0.3)
     plt.show()
-outputRegressione(73)
+outputRegressione(73) #inserisci valore x a piacere per avere una stima di y
