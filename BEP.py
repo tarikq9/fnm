@@ -4,36 +4,40 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math as m
 
+#Test dati
+cf=90000     #costi fissi
+cvu=200      #costi variabili unitari
+ru=500       #ricavi unitari
 
-cf=10000     #costi fissi
-cvu=40      #costi variabili unitari
-ru=95      #ricavi unitari
-
-q=cf/(ru-cvu)
-print("la quantità di bep arrotondata è di:",m.ceil(q))
-print("i ricavi per il bep sono di :",round(ru*q,2))
-   
-#Grafico  
-x=np.linspace(0,q*1.6)           #asse x
-y1=ru*x                          #retta ricavi totali
-y2=cvu*x+cf                      #retta costi totali
-y3=cvu*x                         #retta costi variabili
+def bep(tempo):
+    q=cf/(ru-cvu)
+    ore=tempo*q
+    print("la quantità di bep arrotondata è di:",m.ceil(q))
+    print("i ricavi per il bep sono di :",round(ru*q,2))
+    print('il bep sarà raggiunto con un ammontare di ore pari a',ore)
     
-plt.hlines(y=cf,xmin=0,xmax=q*1.6,color="black",linestyles="-",label="costi fissi") #retta costi fissi 
-plt.hlines(y=q*ru,xmin=0,xmax=q,color="blue",linestyle="--",alpha=0.5)
-plt.vlines(x=q,ymin=0,ymax=q*ru,color="blue",linestyle="--",alpha=0.5)
+    #Grafico  
+    x=np.linspace(0,q*2,100)     #asse x
+    y1=ru*x                        #retta ricavi totali
+    y2=cvu*x                       #retta costi variabili
+    y3=y2+cf                       #retta costi totali
     
-plt.plot(x,y1,label="ricavi totali")
-plt.plot(x,y2,label="costi totali")
-plt.plot(x,y3,label="costi variabili")
-plt.fill_between(x,y1, y2,where = y1>=y2,facecolor ='green', alpha = 0.4,)
-plt.fill_between(x,y1,y2,where= y1<=y2,facecolor = "red",alpha=0.4)
-plt.plot(q,q*ru,"bo",label="break even point")
+    plt.hlines(y=cf,xmin=0,xmax=q*2,color="black",linestyles="-",label="costi fissi") #retta costi fissi 
+    plt.hlines(y=q*ru,xmin=0,xmax=q,color="blue",linestyle="--",alpha=0.5)
+    plt.vlines(x=q,ymin=0,ymax=q*ru,color="blue",linestyle="--",alpha=0.5)
     
-plt.xlabel("QUANTITA'VENDUTE")
-plt.ylabel("COSTI E RICAVI")
-plt.grid(linestyle='--',linewidth=0.5)
-plt.margins(0)
-plt.legend()
-plt.title("BREAK EVEN POINT")
-plt.show()   
+    plt.plot(x,y1,label="ricavi totali")
+    plt.plot(x,y2,label="costi variabili",color='green')
+    plt.plot(x,y3,label="costi totali",color='purple')
+    plt.fill_between(x,y1, y3,where = y1>=y3,facecolor ='green', alpha = 0.3)
+    plt.fill_between(x,y1,y3,where= y1<=y3,facecolor = "red",alpha=0.3)
+    plt.plot(q,q*ru,"bo",label="break even point")
+    
+    plt.xlabel("QUANTITA DA VENDERE")
+    plt.ylabel("COSTI E RICAVI")
+    plt.grid(linestyle='--',linewidth=0.5)
+    plt.margins(0)
+    plt.legend()
+    plt.title("BREAK EVEN POINT")
+    plt.show()   
+bep(32/60) #tempo medio per produrre 1 unità, espresso in ore
