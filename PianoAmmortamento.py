@@ -1,10 +1,10 @@
 #LEGENDA, inserire i valori in basso
 
-n=4              # Anni o Rate
-k=12             # k versamenti all'anno
-i=0.1349         # Tasso d'interesse ANNUO, se il tasso non è annuo, convertitelo in annuo
-s=2500           # Debito iniziale
-v=1              # v=1 se n in anni, v=k se n in rate 
+n=30              # Anni o Rate
+k=1               # k versamenti all'anno
+i=0.03            # Tasso d'interesse ANNUO 
+s=100000          # Debito iniziale
+v=1               # v=1 se n in anni, v=k se n in rate 
  
 
 def ammortamento(tipo) :
@@ -48,15 +48,17 @@ def ammortamento(tipo) :
 
 
     #Stampa il grafico : andamento e incidenza interessi rispetto al capitale prestato
+    fig, ax=plt.subplots()
     cumulativeI= np.cumsum(I)
-    plt.plot(t,cumulativeI, label='Interessi cumulati',color='darkblue')
-    plt.hlines(y=s+(round(sum(I),2)),xmin=0,xmax=nk,color="purple",linestyles="-",label="Totale da restituire")
+    plt.plot(t,cumulativeI, label='curva interessi',color='firebrick',linestyle='--')
     plt.hlines(y=s,xmin=0,xmax=nk,color="darkgreen",linestyles="-",label="Debito iniziale")
-    plt.vlines(x=nk,ymin=0,ymax=round(sum(I),2),color="orange",linestyle="--",label="Incidenza Interessi")
+    plt.hlines(y=s+(round(sum(I),2)),xmin=0,xmax=nk,color="darkblue",linestyles="-",label="Debito finale")
+    
    
     plt.xlabel("RATE")
     plt.ylabel('Euro')
     plt.grid(linestyle='--',linewidth=0.5)
     plt.legend(ncol=4,loc='center',bbox_to_anchor=(0.5,1.06))
+    ax.set_facecolor('floralwhite')
     plt.show()
 ammortamento('francese') #inserire la tipologia di ammortamento: francese o italiano
